@@ -12,7 +12,7 @@ const path = require("path")
 
 
 //Settings
-app.set("port", 3000)
+app.set("port", 3700)
 
 //Middlewares
 app.use(express.json())
@@ -25,8 +25,6 @@ app.use("/tweet/", tweetsRoutes)
 app.use("/follower/", followerRoutes)
 app.use("/like/", likesRoutes)
 app.use("/timeline", timelineRoutes)
-
-
 
 
 //FRONT-END test
