@@ -3,7 +3,11 @@ import {tweetMethods as tweets_} from "../controllers/app_controllers"
 
 const router = Router();
 
-router.get("/:id", tweets_.getTweet)
+router.get("/", tweets_.getTweets)
+
+router.get("/:id/", tweets_.getTweet)
+
+router.get("/user/:id", tweets_.getUserTweets)
 
 router.post("/", tweets_.createTweet)
 

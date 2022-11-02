@@ -22,7 +22,7 @@ app.use(morgan("dev"))
 //Routes
 app.use("/user/", userRoutes)
 app.use("/tweet/", tweetsRoutes)
-app.use("/follower/", followerRoutes)
+app.use("/follow/", followerRoutes)
 app.use("/like/", likesRoutes)
 app.use("/timeline", timelineRoutes)
 
