@@ -228,7 +228,8 @@ const getFollower = (req, res) => {
 	user_buscado = users.find((user) => user.id === id_buscada)
 
 	if (user_buscado) {
-		res.status(200).json(user_buscado.followers);
+		let followers = user_buscado.followers.map((userFollowerId) => users.find((user) => userFollowerId === user.id))
+		res.status(200).json(followers);
 		console.log("GET FOLLOWER - EXITOSO");
 	} else {
 		return res.status(404).json({message:"Usuario no ha podido ser encontrado"});
@@ -242,7 +243,8 @@ const getFollowing = (req, res) => {
 	user_buscado = users.find((user) => user.id === id_buscada)
 
 	if (user_buscado) {
-		res.status(200).json(user_buscado.followings);
+		let followings = user_buscado.followings.map((userFollowingId) => users.find((user) => userFollowingId === user.id))
+		res.status(200).json(followings);
 		console.log("GET FOLLOWING - EXITOSO");
 	} else {
 		return res.status(404).json({message:"Usuario no ha podido ser encontrado"});
@@ -398,7 +400,18 @@ const deleteLike = (req, res) => {
 
 //Metodo de Timeline--------------------------------
 const getTimeline = (req, res) => {
-	res.json("Get Timelines");
+	let id_usuario = +req.params.id
+	let usuario = users.find((user) => user.id === id_usuario)
+	
+	if(usuario === undefined){
+		return res.status(404).json({message: 'El usuario no se ha podido encontrar'})
+	}
+
+	let followings = usuario.followings.map((userFollowingId) => users.find((user) => userFollowingId === user.id))
+
+	let followingTweets = followings.map((userFollowing) => userFollowing.publications.map((findTweet) => tweets.find((tweet) => tweet.id === findTweet)))
+	
+	res.status(200).json(followingTweets.reverse());
 	
 };
 
